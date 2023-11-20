@@ -95,6 +95,16 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.moko.resources.test)
         }
+
+        // Moko resources workaround for https://github.com/icerockdev/moko-resources/pull/575
+        androidMain {
+            dependsOn(commonMain.get())
+        }
+        desktopMain.dependsOn(commonMain.get())
+        iosMain {
+            dependsOn(commonMain.get())
+        }
+        jsMain.dependsOn(commonMain.get())
     }
 }
 
