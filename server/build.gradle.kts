@@ -4,10 +4,10 @@ plugins {
     application
 }
 
-group = "cn.isning.composeMultiplatformDemo"
+group = "cn.edu.buct.snc.xware.manage"
 version = "1.0.0"
 application {
-    mainClass.set("cn.isning.composeMultiplatformDemo.ApplicationKt")
+    mainClass.set("cn.edu.buct.snc.xware.manage.ApplicationKt")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=${extra["development"] ?: "false"}")
 }
 

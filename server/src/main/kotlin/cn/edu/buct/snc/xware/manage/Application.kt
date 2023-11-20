@@ -1,4 +1,4 @@
-package cn.isning.composeMultiplatformDemo
+package cn.edu.buct.snc.xware.manage
 
 import Greeting
 import SERVER_PORT

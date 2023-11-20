@@ -35,7 +35,7 @@ kotlin {
 }
 
 android {
-    namespace = "cn.isning.composeMultiplatformDemo.shared"
+    namespace = "cn.edu.buct.snc.xware.manage.shared"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

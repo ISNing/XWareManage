@@ -1,4 +1,4 @@
-rootProject.name = "ComposeMultiplatformDemo"
+rootProject.name = "XWareManage"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
