@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.mokoResources)
 }
 
 kotlin {
@@ -26,6 +27,8 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            export(libs.moko.resources)
+            export(libs.moko.graphics)
         }
     }
 
@@ -86,6 +89,11 @@ kotlin {
             implementation(compose.material3)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
+            api(libs.moko.resources)
+            api(libs.moko.resources.compose)
+        }
+        commonTest.dependencies {
+            implementation(libs.moko.resources.test)
         }
     }
 }
