@@ -22,10 +22,10 @@ kotlin {
         browser()
     }
 
-    @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-    }
+//    @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
+//    wasmJs {
+//        browser()
+//    }
     
     sourceSets {
         commonMain.dependencies {
