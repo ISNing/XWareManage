@@ -6,7 +6,8 @@ kotlin-jvmTarget = "17"
 kotlin = "1.9.20"
 #kotlin = "2.0.0-Beta1" # Use this for kt 2
 compose = "1.5.4"
-compose-plugin = "1.5.10-dev-wasm03" # special version for wasm
+compose-plugin = "1.5.10"
+#compose-plugin = "1.5.10-dev-wasm03" # special version for wasm
 #compose-plugin = "1.5.4-dev1-kt2.0.0-Beta1" # Use this for kt 2
 compose-compiler = "1.5.3"
 
