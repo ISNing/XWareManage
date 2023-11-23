@@ -1,3 +1,4 @@
+import dev.icerock.gradle.MRVisibility
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
@@ -6,6 +7,14 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.mokoResources)
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "cn.edu.buct.snc.xware.manage" // required
+    multiplatformResourcesClassName = "MR" // optional, default MR
+    multiplatformResourcesVisibility = MRVisibility.Internal // optional, default Public
+    iosBaseLocalizationRegion = "zh" // optional, default "en"
+    multiplatformResourcesSourceSet = "commonMain"  // optional, default "commonMain"
 }
 
 kotlin {
