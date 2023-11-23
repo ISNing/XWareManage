@@ -101,7 +101,15 @@ kotlin {
             dependsOn(commonMain.get())
         }
         desktopMain.dependsOn(commonMain.get())
+
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
         iosMain {
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+
             dependsOn(commonMain.get())
         }
         jsMain.dependsOn(commonMain.get())
