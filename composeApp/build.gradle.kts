@@ -98,8 +98,10 @@ kotlin {
             implementation(compose.material3)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
+
             api(libs.moko.resources)
             api(libs.moko.resources.compose)
+            implementation(libs.logging)
         }
         commonTest.dependencies {
             implementation(libs.moko.resources.test)
