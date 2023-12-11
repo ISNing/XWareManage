@@ -6,22 +6,20 @@ import kotlinx.browser.window
 import org.jetbrains.skiko.wasm.onWasmReady
 import org.w3c.dom.HTMLCanvasElement
 
+private const val canvasElementId = "ComposeTarget"
+
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
     window.onload = {
         // Initialize touch handler for the canvas element
-        initTouchHandler(document.getElementById("ComposeTarget") as HTMLCanvasElement? ?: error("No canvas element found!"))
+        initTouchHandler(
+            document.getElementById(canvasElementId) as HTMLCanvasElement?
+                ?: error("No canvas element found!")
+        )
     }
     onWasmReady {
-        CanvasBasedWindow("Compose Wow", canvasElementId = "ComposeTarget") {
+        CanvasBasedWindow("Compose Wow", canvasElementId = canvasElementId) {
             App()
         }
     }
-}
-
-@OptIn(ExperimentalJsExport::class)
-@JsExport
-@JsName("initTouchHandler")
-fun initTouchHandler(element: HTMLCanvasElement) {
-    js("initTouchHandler(element)")
 }
