@@ -7,6 +7,9 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import io.github.oshai.kotlinlogging.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
 
 val colorSchemeState: MutableState<ColorScheme?> = mutableStateOf(null)
 val shapesState: MutableState<Shapes?> = mutableStateOf(null)
@@ -25,7 +28,6 @@ val typographyDefault: Typography
     get() = typographyState.value!!
 
 var initialized: Boolean = false
-
 @Composable
 fun AppTheme(
     colorScheme: ColorScheme? = null,
@@ -33,9 +35,9 @@ fun AppTheme(
     typography: Typography? = null,
     content: @Composable () -> Unit
 ) {
-    println("AppTheme: initializing...")
+    logger.debug { "AppTheme: initializing..." }
     if (!initialized) {
-        println("AppTheme: composable initializing...")
+        logger.debug { "AppTheme: composable initializing..." }
         composableInit()
         platformComposableInit()
         initialized = true

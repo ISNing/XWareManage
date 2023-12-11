@@ -12,6 +12,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import cn.edu.buct.snc.xware.manage.misc.LoadFontAsync
 import cn.edu.buct.snc.xware.manage.misc.loadFontAsync
+import io.github.oshai.kotlinlogging.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
 
 @Composable
 actual fun PlatformSpecifiedAppTheme(
@@ -38,12 +41,12 @@ fun loadFontAsyncListened(
 ): LoadFontAsync = loadFontAsync(path, weight, style, identifier, false).also {
     it.onCompleted { result ->
         result.onSuccess {
-            console.log("Font loaded: $it")
+            logger.debug { "Font loaded: $it" }
             rebuildFontFamily()
             rebuildTypography()
         }
         result.onFailure {
-            console.error("Font load failed: $it")
+            logger.error { "Font load failed: $it" }
         }
     }
 }
@@ -97,6 +100,7 @@ val thin by loadFontAsyncListened(
 val fontFamilyState: MutableState<FontFamily> = mutableStateOf(FontFamily.Default)
 
 fun rebuildFontFamily() {
+    logger.debug { "Rebuilding FontFamily..." }
     val fontList = listOfNotNull(
         black,
         bold,
@@ -115,6 +119,7 @@ fun rebuildFontFamily() {
 }
 
 fun rebuildTypography() {
+    logger.debug { "Rebuilding Typography..." }
     typographyState.value = Typography(
         displayLarge = baseTypography.displayLarge.copy(fontFamily = fontFamilyState.value),
         displayMedium = baseTypography.displayMedium.copy(fontFamily = fontFamilyState.value),
