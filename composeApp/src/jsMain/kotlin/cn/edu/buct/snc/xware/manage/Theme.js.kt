@@ -39,7 +39,8 @@ fun loadFontAsyncListened(
     it.onCompleted { result ->
         result.onSuccess {
             console.log("Font loaded: $it")
-            rebuildFonts()
+            rebuildFontFamily()
+            rebuildTypography()
         }
         result.onFailure {
             console.error("Font load failed: $it")
@@ -94,13 +95,8 @@ val thin by loadFontAsyncListened(
 )
 
 val fontFamilyState: MutableState<FontFamily> = mutableStateOf(FontFamily.Default)
-var fontFamily: FontFamily
-    get() = fontFamilyState.value
-    set(value) {
-        fontFamilyState.value = value
-    }
 
-fun rebuildFonts() {
+fun rebuildFontFamily() {
     val fontList = listOfNotNull(
         black,
         bold,
@@ -112,26 +108,28 @@ fun rebuildFonts() {
         semiBold,
         thin,
     )
-    fontFamily = if (fontList.isNotEmpty())
+    fontFamilyState.value = if (fontList.isNotEmpty())
         FontFamily(
             fonts = fontList
         ) else FontFamily.Default
+}
 
+fun rebuildTypography() {
     typographyState.value = Typography(
-        displayLarge = baseTypography.displayLarge.copy(fontFamily = fontFamily),
-        displayMedium = baseTypography.displayMedium.copy(fontFamily = fontFamily),
-        displaySmall = baseTypography.displaySmall.copy(fontFamily = fontFamily),
-        headlineLarge = baseTypography.headlineLarge.copy(fontFamily = fontFamily),
-        headlineMedium = baseTypography.headlineMedium.copy(fontFamily = fontFamily),
-        headlineSmall = baseTypography.headlineSmall.copy(fontFamily = fontFamily),
-        titleLarge = baseTypography.titleLarge.copy(fontFamily = fontFamily),
-        titleMedium = baseTypography.titleMedium.copy(fontFamily = fontFamily),
-        titleSmall = baseTypography.titleSmall.copy(fontFamily = fontFamily),
-        bodyLarge = baseTypography.bodyLarge.copy(fontFamily = fontFamily),
-        bodyMedium = baseTypography.bodyMedium.copy(fontFamily = fontFamily),
-        bodySmall = baseTypography.bodySmall.copy(fontFamily = fontFamily),
-        labelLarge = baseTypography.labelLarge.copy(fontFamily = fontFamily),
-        labelMedium = baseTypography.labelMedium.copy(fontFamily = fontFamily),
-        labelSmall = baseTypography.labelSmall.copy(fontFamily = fontFamily),
+        displayLarge = baseTypography.displayLarge.copy(fontFamily = fontFamilyState.value),
+        displayMedium = baseTypography.displayMedium.copy(fontFamily = fontFamilyState.value),
+        displaySmall = baseTypography.displaySmall.copy(fontFamily = fontFamilyState.value),
+        headlineLarge = baseTypography.headlineLarge.copy(fontFamily = fontFamilyState.value),
+        headlineMedium = baseTypography.headlineMedium.copy(fontFamily = fontFamilyState.value),
+        headlineSmall = baseTypography.headlineSmall.copy(fontFamily = fontFamilyState.value),
+        titleLarge = baseTypography.titleLarge.copy(fontFamily = fontFamilyState.value),
+        titleMedium = baseTypography.titleMedium.copy(fontFamily = fontFamilyState.value),
+        titleSmall = baseTypography.titleSmall.copy(fontFamily = fontFamilyState.value),
+        bodyLarge = baseTypography.bodyLarge.copy(fontFamily = fontFamilyState.value),
+        bodyMedium = baseTypography.bodyMedium.copy(fontFamily = fontFamilyState.value),
+        bodySmall = baseTypography.bodySmall.copy(fontFamily = fontFamilyState.value),
+        labelLarge = baseTypography.labelLarge.copy(fontFamily = fontFamilyState.value),
+        labelMedium = baseTypography.labelMedium.copy(fontFamily = fontFamilyState.value),
+        labelSmall = baseTypography.labelSmall.copy(fontFamily = fontFamilyState.value),
     )
 }
