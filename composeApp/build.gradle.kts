@@ -113,8 +113,12 @@ kotlin {
         // Moko resources workaround for https://github.com/icerockdev/moko-resources/pull/575
         androidMain {
             dependsOn(commonMain.get())
+            dependsOn(jvmMain.get())
         }
-        desktopMain.dependsOn(commonMain.get())
+        desktopMain.apply {
+            dependsOn(commonMain.get())
+            dependsOn(jvmMain.get())
+        }
 
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -125,6 +129,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
             dependsOn(commonMain.get())
+            dependsOn(nativeMain.get())
         }
         jsMain.dependsOn(commonMain.get())
     }
