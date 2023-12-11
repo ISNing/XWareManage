@@ -1,6 +1,6 @@
 import dev.icerock.gradle.MRVisibility
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -82,7 +82,10 @@ kotlin {
         val desktopMain by getting
         val jsMain by getting
 //        val wasmJsMain by getting // TODO: Uncomment it after stable release
-        
+
+        jvmMain.dependencies {
+            implementation(libs.slf4j.api)
+        }
         androidMain.dependencies {
             implementation(libs.compose.ui)
             implementation(libs.compose.ui.tooling.preview)

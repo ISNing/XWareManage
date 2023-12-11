@@ -31,6 +31,7 @@ junit = "4.13.2"
 moko = "0.23.0"
 moko-graphics = "0.9.0"
 logging = "5.1.1"
+slf4j = "2.0.7"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -58,6 +59,7 @@ moko-resources-compose = { module = "dev.icerock.moko:resources-compose", versio
 moko-resources-test = { module = "dev.icerock.moko:resources-test", version.ref = "moko" }
 moko-graphics = { module = "dev.icerock.moko:graphics", version.ref = "moko-graphics" }
 logging = { module = "io.github.oshai:kotlin-logging", version.ref = "logging" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 
 [plugins]
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
