@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.mokoResources)
+    alias(libs.plugins.detekt)
 }
 
 multiplatformResources {
