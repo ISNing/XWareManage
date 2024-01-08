@@ -1,0 +1,71 @@
+name: "Detekt Code Check"
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  detekt-code-check:
+    name: Perform Detekt Code Check
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - targetTask: 'composeApp:detekt'
+            withMacOSContainer: false
+          - targetTask: 'shared:detekt'
+            withMacOSContainer: false
+          - targetTask: 'server:detekt'
+            withMacOSContainer: false
+
+    runs-on: ${{ matrix.withMacOSContainer && 'macos-latest' || 'ubuntu-latest' }}
+
+    steps:
+      - name: Extract module name
+        id: extract_module_name
+        run: echo "module_name=$(echo "${{ matrix.targetTask }}" | awk '{pos=index($0, ":"); if(pos) print substr($0, 1, pos-1); else print ""}')" >> $GITHUB_OUTPUT
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Perform code check
+        uses: gradle/gradle-command-action@v2
+        with:
+          arguments: ${{ matrix.targetTask }}
+
+      - name: Generate artifact path
+        id: generate_artifact_path
+        if: always()
+        run: echo "artifact_path=$([ -z "${{ steps.extract_module_name.outputs.module_name }}" ] && echo "." || echo "${{ steps.extract_module_name.outputs.module_name }}")/build/reports/detekt" >> $GITHUB_OUTPUT
+
+      - name: Collect report
+        if: always()
+        run: cat ${{ steps.generate_artifact_path.outputs.artifact_path }}/detekt.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Generate artifact name
+        id: generate_artifact_name
+        if: always()
+        run: echo "artifact_name=detekt-reports_$(echo "${{ matrix.targetTask }}" | sed 's/:/_/g')" >> $GITHUB_OUTPUT
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.generate_artifact_name.outputs.artifact_name }}
+          path: ${{ steps.generate_artifact_path.outputs.artifact_path }}/*
+          if-no-files-found: error
