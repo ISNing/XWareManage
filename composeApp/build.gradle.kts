@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.mokoResources)
+    alias(libs.plugins.detekt)
 }
 
 multiplatformResources {
@@ -14,7 +15,7 @@ multiplatformResources {
     multiplatformResourcesClassName = "MR" // optional, default MR
     multiplatformResourcesVisibility = MRVisibility.Internal // optional, default Public
     iosBaseLocalizationRegion = "zh" // optional, default "en"
-    multiplatformResourcesSourceSet = "commonMain"  // optional, default "commonMain"
+    multiplatformResourcesSourceSet = "commonMain" // optional, default "commonMain"
 }
 
 kotlin {
@@ -25,7 +26,7 @@ kotlin {
             }
         }
     }
-    
+
     jvm("desktop")
 
     listOf(
@@ -189,4 +190,19 @@ compose.desktop {
 
 compose.experimental.web {
     application {}
+}
+
+detekt {
+    source.setFrom(
+        "src/commonMain/kotlin",
+        "src/androidMain/kotlin",
+        "src/desktopMain/kotlin",
+        "src/jsMain/kotlin",
+        "src/iosMain/kotlin",
+        "src/wasmJsMain/kotlin"
+    )
+    config.setFrom("detekt.yml")
+    buildUponDefaultConfig = true
+    debug = false
+    basePath = projectDir.absolutePath
 }

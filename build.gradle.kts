@@ -7,4 +7,5 @@ plugins {
     alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.jetbrainsCompose) apply false
     alias(libs.plugins.mokoResources) apply false
+    alias(libs.plugins.detekt) apply false
 }

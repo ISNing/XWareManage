@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.detekt)
 }
 
 kotlin {
@@ -30,6 +31,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // put your Multiplatform dependencies here
+//            implementation("io.logto.sdk:kotlin:1.1.1")
         }
     }
 }
@@ -44,4 +46,19 @@ android {
         sourceCompatibility = JavaVersion.valueOf(libs.versions.jvm.capability.source.get())
         targetCompatibility = JavaVersion.valueOf(libs.versions.jvm.capability.target.get())
     }
+}
+
+detekt {
+    source.setFrom(
+        "src/commonMain/kotlin",
+        "src/androidMain/kotlin",
+        "src/iosMain/kotlin",
+        "src/jsMain/kotlin",
+        "src/jvmMain/kotlin",
+        "src/wasmJsMain/kotlin"
+    )
+    config.setFrom("detekt.yml")
+    buildUponDefaultConfig = true
+    debug = false
+    basePath = projectDir.absolutePath
 }
