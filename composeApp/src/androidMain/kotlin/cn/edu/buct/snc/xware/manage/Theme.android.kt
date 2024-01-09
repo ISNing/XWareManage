@@ -23,4 +23,5 @@ actual fun PlatformSpecifiedAppTheme(
 @SuppressLint("ComposableNaming")
 @Composable
 actual fun platformComposableInit() {
+    // no-op
 }

@@ -21,4 +21,5 @@ actual fun PlatformSpecifiedAppTheme(
 
 @Composable
 actual fun platformComposableInit() {
+    // no-op
 }

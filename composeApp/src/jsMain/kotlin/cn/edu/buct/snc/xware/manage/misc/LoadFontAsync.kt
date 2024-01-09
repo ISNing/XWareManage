@@ -11,7 +11,9 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.resource
 import kotlin.reflect.KProperty
 
-class LoadFontAsync @OptIn(DelicateCoroutinesApi::class) constructor(
+class LoadFontAsync
+@OptIn(DelicateCoroutinesApi::class)
+constructor(
     path: String,
     weight: FontWeight,
     style: FontStyle,
@@ -21,7 +23,9 @@ class LoadFontAsync @OptIn(DelicateCoroutinesApi::class) constructor(
 ) {
     @OptIn(ExperimentalResourceApi::class)
     private var value: AsyncLazy<Font> = scope.asyncLazy {
-        Font(identifier ?: path, resource(path).readBytes(),
+        Font(
+            identifier ?: path,
+            resource(path).readBytes(),
             weight = weight,
             style = style
         )
@@ -38,7 +42,7 @@ fun CoroutineScope.loadFontAsync(
     style: FontStyle,
     identifier: String? = null,
     lazy: Boolean = true,
-    ): LoadFontAsync = LoadFontAsync(path, weight, style, identifier, lazy, this)
+): LoadFontAsync = LoadFontAsync(path, weight, style, identifier, lazy, this)
 
 fun loadFontAsync(
     path: String,
@@ -46,4 +50,4 @@ fun loadFontAsync(
     style: FontStyle,
     identifier: String? = null,
     lazy: Boolean = true,
-    ): LoadFontAsync = LoadFontAsync(path, weight, style, identifier, lazy)
+): LoadFontAsync = LoadFontAsync(path, weight, style, identifier, lazy)
